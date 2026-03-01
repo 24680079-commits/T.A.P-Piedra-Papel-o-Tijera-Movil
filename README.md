@@ -232,3 +232,67 @@ Una función que contiene la lógica del juego
 Una estructura condicional que modela reglas reales
 
 Un mecanismo de actualización visual
+
+# Ejecución del proyecto en iOS con Flet
+Descripción
+
+La aplicación fue desarrollada utilizando el framework Flet para Python, lo que permitió crear una interfaz gráfica interactiva sin necesidad de desarrollar código nativo para dispositivos móviles.
+
+Para ejecutar el proyecto en un dispositivo iOS (iPhone), se utilizó la aplicación oficial Flet disponible en App Store, la cual permite conectarse a un servidor Flet en ejecución desde una computadora.
+
+Proceso de ejecución en iOS
+# 1️ Instalación de la aplicación en el dispositivo móvil
+
+Se descargó e instaló la aplicación oficial Flet en el iPhone desde la App Store.
+
+Esta aplicación funciona como un cliente que puede conectarse a una aplicación Flet en ejecución dentro de una red local.
+
+# 2️ Ejecución del proyecto en la computadora
+
+En la computadora (macOS), se abrió la terminal dentro de la carpeta del proyecto y se ejecutó el siguiente comando:
+```
+flet run main.py
+```
+Al ejecutar este comando:
+
+Flet levanta un servidor local.
+
+Se genera una dirección IP (por ejemplo: http://192.168.1.15:8550).
+
+Se habilita la conexión desde otros dispositivos en la misma red WiFi.
+
+# 3️ Conexión del dispositivo iOS
+
+Una vez iniciado el servidor:
+
+Se abrió la aplicación Flet en el iPhone.
+
+Se ingresó la dirección IP mostrada en la terminal (o se escaneó el código QR generado).
+
+El dispositivo se conectó al servidor local.
+
+Al establecer la conexión, la interfaz del juego se mostró en el dispositivo móvil.
+
+# Funcionamiento técnico
+
+El proceso funciona bajo un modelo cliente-servidor:
+
+La computadora actúa como servidor y ejecuta el código Python.
+
+El iPhone actúa como cliente.
+
+Cuando el usuario interactúa con la aplicación (por ejemplo, al presionar un botón), el evento se envía al servidor.
+
+El servidor procesa la lógica del programa.
+
+El resultado se devuelve al dispositivo móvil en tiempo real.
+
+Este método permite probar la aplicación en un entorno móvil sin necesidad de compilar o generar una aplicación nativa (IPA).
+
+# Requisitos para la conexión
+
+Ambos dispositivos deben estar conectados a la misma red WiFi.
+
+El servidor debe estar activo mientras se utiliza la aplicación en el móvil.
+
+No es necesario generar un archivo instalable para realizar pruebas.
