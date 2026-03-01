@@ -296,3 +296,71 @@ Ambos dispositivos deben estar conectados a la misma red WiFi.
 El servidor debe estar activo mientras se utiliza la aplicación en el móvil.
 
 No es necesario generar un archivo instalable para realizar pruebas.
+
+# Codigo completo 
+```
+import flet as ft
+import random
+
+def main(page: ft.Page):
+
+    page.title = "Juego: Piedra, Papel o Tijera"
+    page.padding = 40
+    page.theme_mode = ft.ThemeMode.LIGHT
+
+    opciones = ["Piedra", "Papel", "Tijera"]
+
+    # Texto resultado
+    txt_maquina = ft.Text("La máquina aún no elige", size=18)
+    txt_resultado = ft.Text("Aquí el resultado", size=22, weight=ft.FontWeight.BOLD)
+
+    # Función del juego
+    def jugar(e):
+        eleccion_usuario = e.control.data
+        eleccion_maquina = random.choice(opciones)
+
+        txt_maquina.value = f"La máquina eligió: {eleccion_maquina}"
+
+        if eleccion_usuario == eleccion_maquina:
+            txt_resultado.value = "¡Empate!"
+        elif (
+            (eleccion_usuario == "Piedra" and eleccion_maquina == "Tijera") or
+            (eleccion_usuario == "Papel" and eleccion_maquina == "Piedra") or
+            (eleccion_usuario == "Tijera" and eleccion_maquina == "Papel")
+        ):
+            txt_resultado.value = "¡Ganaste! "
+        else:
+            txt_resultado.value = "Perdiste "
+
+        page.update()
+
+    # Botones
+    btn_piedra = ft.ElevatedButton("Piedra", data="Piedra", on_click=jugar)
+    btn_papel = ft.ElevatedButton("Papel", data="Papel", on_click=jugar)
+    btn_tijera = ft.ElevatedButton("Tijera", data="Tijera", on_click=jugar)
+
+    page.add(
+        ft.Column(
+            [
+                ft.Text("Piedra, Papel o Tijera", size=26, weight=ft.FontWeight.BOLD),
+                ft.Text("Elige una opción:"),
+                ft.Row([btn_piedra, btn_papel, btn_tijera], spacing=20),
+                ft.Divider(),
+                txt_maquina,
+                txt_resultado,
+            ],
+            spacing=20
+        )
+    )
+
+ft.app(target=main)
+```
+# Programa en Macos
+<img width="806" height="604" alt="Captura de pantalla 2026-03-01 a la(s) 17 42 00" src="https://github.com/user-attachments/assets/aa9a994f-97fa-42d8-8d1c-02ff6df71988" />
+
+# QR para correr en ios
+<img width="1143" height="994" alt="Captura de pantalla 2026-03-01 a la(s) 17 38 24" src="https://github.com/user-attachments/assets/11126976-496e-4a44-b98f-0ab8ca7803b3" />
+
+# Programa en ios 
+<img width="1284" height="2778" alt="image" src="https://github.com/user-attachments/assets/d9b349ea-1e88-440f-b77b-1f8b4301e342" />
+
