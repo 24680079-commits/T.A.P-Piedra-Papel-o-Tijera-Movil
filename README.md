@@ -1,1 +1,234 @@
 # T.A.P-Piedra-Papel-o-Tijera-Movil
+
+# Estructura completa del programa 
+
+# 1. Importaciones
+```bash
+import flet as ft
+import random
+```
+¿Qué está pasando aquí?
+
+flet → es la librería que permite crear la interfaz gráfica.
+
+random → se usa para que la computadora elija una opción al azar.
+
+Sin random, la máquina no podría simular una decisión real.
+
+# 2. Función principal main
+```bash
+def main(page: ft.Page):
+```
+¿Por qué existe esta función?
+
+En Flet, todo comienza dentro de main.
+
+page representa la ventana de la aplicación.
+
+Aquí se construye toda la interfaz.
+
+También se define la lógica que interactúa con los botones.
+
+Es como el “contenedor principal” del programa.
+
+# 3. Configuración inicial de la página
+```bash
+page.title = "Piedra, Papel o Tijera"
+page.vertical_alignment = ft.MainAxisAlignment.CENTER
+page.horizontal_alignment = ft.CrossAxisAlignment.CENTER
+```
+¿Qué hace esto?
+
+Cambia el título de la ventana.
+
+Centra los elementos vertical y horizontalmente.
+
+Esto no afecta la lógica del juego, solo la presentación visual.
+
+# 4. Definimos las opciones del juego
+```bash
+opciones = ["Piedra", "Papel", "Tijera"]
+```
+¿Por qué aquí?
+
+Porque:
+
+Estas opciones se usarán en toda la función.
+
+Son necesarias para que la máquina elija una al azar.
+
+Aquí estamos modelando las reglas del juego en una estructura de datos.
+
+# 5. Creamos los textos que mostrarán resultados
+```bash
+txt_resultado = ft.Text(size=20)
+txt_eleccion_maquina = ft.Text(size=18)
+```
+¿Qué representan?
+
+txt_resultado → mostrará si ganaste, perdiste o empataste.
+
+txt_eleccion_maquina → mostrará qué eligió la computadora.
+
+Importante:
+Se crean antes porque luego los modificaremos dentro de la función jugar.
+
+# 6. Creamos la función jugar
+
+Aquí empieza la lógica real.
+
+def jugar(e):
+
+Esta función se ejecuta cada vez que el usuario presiona un botón.
+
+6.1 Obtener la elección del jugador
+```bash
+eleccion_usuario = e.control.data
+```
+¿Qué significa?
+
+e es el evento del botón.
+
+e.control es el botón que fue presionado.
+
+.data es el valor que le asignamos al botón.
+
+Así sabemos qué eligió el usuario.
+
+6.2 Generar elección aleatoria de la máquina
+```bash
+eleccion_maquina = random.choice(opciones)
+```
+Aquí usamos la lista creada antes.
+
+random.choice() selecciona un elemento aleatorio.
+
+Simulamos que la máquina “decide”.
+
+6.3 Mostrar la elección de la máquina
+```bash
+txt_eleccion_maquina.value = f"La máquina eligió: {eleccion_maquina}"
+```
+Actualizamos el texto dinámicamente.
+
+6.4 Comparar las elecciones (LÓGICA CENTRAL)
+Caso 1 — Empate
+```bash
+if eleccion_usuario == eleccion_maquina:
+    txt_resultado.value = "¡Empate!"
+Caso 2 — El jugador gana
+elif (
+    (eleccion_usuario == "Piedra" and eleccion_maquina == "Tijera") or
+    (eleccion_usuario == "Papel" and eleccion_maquina == "Piedra") or
+    (eleccion_usuario == "Tijera" and eleccion_maquina == "Papel")
+):
+    txt_resultado.value = "¡Ganaste!"
+```
+
+Aquí evaluamos todas las combinaciones ganadoras del jugador.
+
+Usamos:
+
+and → ambas condiciones deben cumplirse.
+
+or → basta con que una combinación sea verdadera.
+
+Caso 3 — La máquina gana
+```bash
+else:
+    txt_resultado.value = "Perdiste"
+```
+
+Si no fue empate ni victoria del jugador, automáticamente la máquina gana.
+
+6.5 Actualizar la interfaz
+```bash
+page.update()
+```
+
+Esto es muy importante.
+
+En Flet, cuando cambias valores de controles (.value), debes actualizar la página para que los cambios se reflejen visualmente.
+
+Sin esto, el texto no cambiaría en pantalla.
+
+# 7. Crear los botones
+```bash
+btn_piedra = ft.ElevatedButton(" Piedra", data="Piedra", on_click=jugar)
+btn_papel = ft.ElevatedButton(" Papel", data="Papel", on_click=jugar)
+btn_tijera = ft.ElevatedButton(" Tijera", data="Tijera", on_click=jugar)
+```
+Cada botón:
+
+Tiene texto visible
+
+Tiene un data oculto (la opción real)
+
+Llama a jugar cuando se presiona
+
+Aquí conectamos interfaz + lógica.
+
+# 8. Agregar todo a la página
+```bash
+page.add(
+    ft.Text("Elige una opción:", size=22),
+    btn_piedra,
+    btn_papel,
+    btn_tijera,
+    txt_eleccion_maquina,
+    txt_resultado
+)
+```
+Aquí ensamblamos la interfaz.
+
+Ordenamos:
+
+Texto inicial
+
+Botones
+
+Resultado máquina
+
+Resultado final
+
+# 9. Ejecutar la aplicación
+```bash
+ft.app(target=main)
+```
+Esto inicia la aplicación.
+
+Le dice a Flet:
+
+Ejecuta la función main para construir la app.
+
+# Flujo completo del programa
+
+Se ejecuta ft.app
+
+Se llama a main
+
+Se construye la interfaz
+
+El usuario presiona un botón
+
+Se ejecuta jugar
+
+Se comparan elecciones
+
+Se actualizan textos
+
+Se actualiza la página
+
+# En resumen
+
+Tu programa tiene:
+
+Una parte de configuración
+
+Una parte de interfaz
+
+Una función que contiene la lógica del juego
+
+Una estructura condicional que modela reglas reales
+
+Un mecanismo de actualización visual
